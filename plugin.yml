@@ -1,0 +1,17 @@
+name: RealPing
+version: 0.1.0
+author: mouseymars
+description: A simple plugin for telling a player their ping milliseconds to the server
+website: http://github.com/iaidan/realping
+main: net.aidantaylor.realping.RealPing
+commands:
+   realping:
+     description: States your, or another players ping to the server
+     aliases: [ping]
+permissions:
+  realping.ping:
+     description: States your ping to the server
+     default: op
+  realping.ping.others:
+     description: States another players ping to the server
+     default: op
