@@ -1,8 +1,9 @@
 package net.aidantaylor.realping;
 
-import net.minecraft.server.v1_7_R2.EntityPlayer;
+import net.minecraft.server.v1_7_R3.EntityPlayer;
+
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_7_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;

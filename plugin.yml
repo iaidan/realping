@@ -1,5 +1,5 @@
 name: RealPing
-version: 0.1.0
+version: 0.1.1
 author: mouseymars
 description: A simple plugin for telling a player their ping milliseconds to the server
 website: http://github.com/iaidan/realping
