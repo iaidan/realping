@@ -9,38 +9,43 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommandExe implements CommandExecutor {
-	private JavaPlugin javaplugin;
+	private RealPing rp;
 
 	public CommandExe(JavaPlugin plugin) {
-		javaplugin = plugin;
+		rp = (RealPing) plugin;
 	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("realping") || cmd.getName().equalsIgnoreCase("ping")) {
 			if (args.length < 1) {
-				if (sender instanceof Player && !sender.hasPermission("realping.ping") && !sender.isOp()) {
-					sender.sendMessage(ChatColor.RED + "You do not have permission to access this command.");
+				if (sender instanceof Player) {
+					if (sender.hasPermission("realping.ping") && sender.isOp()) {
+						sender.sendMessage(ChatColor.DARK_GREEN + "You have a ping of " + RealPing.getPing((Player) sender) + " ms");
+					} else {
+						sender.sendMessage(ChatColor.RED + "You do not have permission to access this command.");
+					}
 				} else {
-					sender.sendMessage(ChatColor.DARK_GREEN + "You have a ping of " + RealPing.getPing((Player) sender) + " ms");
+					sender.sendMessage(ChatColor.RED + "Correct usage: /ping [player]");
 				}
 			} else {
-				if (sender instanceof Player && !sender.hasPermission("realping.ping.other") && !sender.isOp()) {
+				if ((sender instanceof Player && !sender.hasPermission("realping.ping.other") && !sender.isOp())) {
 					sender.sendMessage(ChatColor.RED + "You do not have permission to access this command.");
 				} else {
-					Player other = null;
+					boolean found = false;
 					
 					for(Player p : Bukkit.getOnlinePlayers()){
-						if (p.getName() == args[0].toLowerCase()) {
-							other = p;
+						String name = p.getName();
+						
+						if (name.equalsIgnoreCase(args[0])) {
+							sender.sendMessage(ChatColor.DARK_GREEN + name + " has a ping of " + RealPing.getPing(p) + " ms");
+							found = true;
 							break;
 						}
 					}
 					
-					if (other == null) {
+					if (!found) {
 						sender.sendMessage(ChatColor.RED + "Player not found.");
-					} else {
-						sender.sendMessage(ChatColor.DARK_GREEN + other.getName() + " has a ping of " + RealPing.getPing(other) + " ms");
 					}
 				}
 			}
