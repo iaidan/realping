@@ -34,7 +34,7 @@ Bukkit Minecraft Server Mod, http://bukkit.org
     <tr>
       <td>/ping [playername]</td>
       <td>States another players ping to the server</td>
-      <td>realping.ping</td>
+      <td>realping.ping.other</td>
       <td>op</td>
     </tr>
   </tbody>
