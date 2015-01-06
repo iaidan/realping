@@ -1,9 +1,10 @@
 package net.aidantaylor.realping;
 
-import net.minecraft.server.v1_7_R3.EntityPlayer;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,33 +18,35 @@ public final class RealPing extends JavaPlugin implements Listener {
 		getCommand("realping").setExecutor(new CommandExe(this));
 		getServer().getPluginManager().registerEvents(this, this);
 
-		//this.saveDefaultConfig();
-
 		log(getName() + " has been enabled!", true);
-		load();
 	}
 
 	@Override
 	public void onDisable() {
 		log(getName() + " has been disabled!", true);
 	}
-	public void load() {
-		//configFile = getConfig();
-	}
 	
 	public static int getPing(Player p) {
-		CraftPlayer cp = (CraftPlayer) p;
-		EntityPlayer ep = cp.getHandle();
-		
-		return ep.ping;
-	}
-	
-	@Override
-	public void reloadConfig() {
-		super.reloadConfig();
-		getConfig().options().copyDefaults(true);
-		
-		load();
+        Class<?> CPClass;
+        
+        String bpName  = Bukkit.getServer().getClass().getPackage().getName(),
+        	   version = bpName.substring(bpName.lastIndexOf(".") + 1, bpName.length());
+        
+        try {
+        	CPClass = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer");
+        	Object CraftPlayer = CPClass.cast(p);
+            
+            Method getHandle = CraftPlayer.getClass().getMethod("getHandle", new Class[0]);
+            Object EntityPlayer = getHandle.invoke(CraftPlayer, new Object[0]);
+            
+            Field ping = EntityPlayer.getClass().getDeclaredField("ping");
+            
+            return ping.getInt(EntityPlayer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return 0;
 	}
 	
 	public void log(String string) {
@@ -54,13 +57,5 @@ public final class RealPing extends JavaPlugin implements Listener {
 		if (bypassdebug == true || debug == true) {
 			getLogger().info(string);
 		}
-	}
-
-	public FileConfiguration getConfigFile() {
-		return configFile;
-	}
-
-	public void setConfigFile(FileConfiguration config) {
-		configFile = config;
 	}
 }
