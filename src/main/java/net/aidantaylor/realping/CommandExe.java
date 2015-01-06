@@ -20,7 +20,7 @@ public class CommandExe implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("realping") || cmd.getName().equalsIgnoreCase("ping")) {
 			if (args.length < 1) {
 				if (sender instanceof Player) {
-					if (sender.hasPermission("realping.ping") && sender.isOp()) {
+					if (sender.hasPermission("realping.ping") || sender.isOp()) {
 						sender.sendMessage(ChatColor.DARK_GREEN + "You have a ping of " + RealPing.getPing((Player) sender) + " ms");
 					} else {
 						sender.sendMessage(ChatColor.RED + "You do not have permission to access this command.");
@@ -29,7 +29,7 @@ public class CommandExe implements CommandExecutor {
 					sender.sendMessage(ChatColor.RED + "Correct usage: /ping [player]");
 				}
 			} else {
-				if ((sender instanceof Player && !sender.hasPermission("realping.ping.other") && !sender.isOp())) {
+				if (sender instanceof Player && (!sender.hasPermission("realping.ping.other") && !sender.isOp())) {
 					sender.sendMessage(ChatColor.RED + "You do not have permission to access this command.");
 				} else {
 					boolean found = false;
