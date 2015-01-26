@@ -3,7 +3,7 @@ version: 0.5.0
 author: mouseymars
 description: A simple plugin for telling a player their ping milliseconds to the server
 website: http://github.com/iaidan/realping
-main: net.aidantaylor.realping.RealPing
+main: net.aidantaylor.bukkit.realping.RealPing
 commands:
    realping:
      description: States your, or another players ping to the server
