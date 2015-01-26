@@ -1,4 +1,4 @@
-package net.aidantaylor.realping;
+package net.aidantaylor.bukkit.realping;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

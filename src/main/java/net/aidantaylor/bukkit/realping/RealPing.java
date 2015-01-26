@@ -1,4 +1,4 @@
-package net.aidantaylor.realping;
+package net.aidantaylor.bukkit.realping;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
