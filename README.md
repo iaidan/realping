@@ -1,4 +1,5 @@
 <h2>RealPing</h2>
+<img src="https://travis-ci.org/iaidan/realping.svg" alt="" />
 
 A simple plugin for telling a player their ping milliseconds to the server
 
